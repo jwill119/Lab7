@@ -12,7 +12,7 @@ using namespace std;
 
 // Bubble sort
 // Modified from Shaffer "Data Structures and Algorithms in C++", 2012
-void bubsort(vector<double> vec, int n) {
+void bubsort(vector<double> vec, size_t n) {
     double temp;
     for (int i=0; i<n-1; i++) {         // Bubble forward
         for (int j = n-1; j>i; j--) {   // Inner bubble goes back
@@ -38,7 +38,7 @@ void bubsort(E A[], int n) { // Bubble Sort
 
 // Insertion sort
 // Modified from Shaffer "Data Structures and Algorithms in C++", 2012
-void inssort(vector<double> vec, int n) {
+void inssort(vector<double> vec, size_t n) {
     double temp;
     for (int i = 1; i < n; i++) {
         for (int j = i; (j > 0) && (vec[j] < vec[j-1]); j--) {
@@ -62,7 +62,7 @@ void inssort(E A[], int n) { // Insertion Sort
 
 // Selection sort
 // Modified from Shaffer "Data Structures and Algorithms in C++", 2012
-void selsort(vector<double> vec, int n) {
+void selsort(vector<double> vec, size_t n) {
     double temp;
     for (int i = 0; i < n-1; i++) {
         int lowindex = i;
@@ -93,6 +93,11 @@ void selsort(E A[], int n) { // Selection Sort
 
 // Merge sort
 // Modified from Shaffer "Data Structures and Algorithms in C++", 2012
+
+
+
+// The template
+/*
 template <typename E, typename Comp>
 void mergesort(E A[], E temp[], int left, int right) {
     if ((right-left) <= THRESHOLD) { // Small list
@@ -114,11 +119,16 @@ void mergesort(E A[], E temp[], int left, int right) {
         }
     }
 }
+*/
 
 
 
 // Quicksort
 // Modified from Shaffer "Data Structures and Algorithms in C++", 2012
+
+
+// The template
+/*
 template <typename E, typename Comp>
 void qsort(E A[], int i, int j) { // Quicksort
     if (j <= i) return; // Don’t sort 0 or 1 element
@@ -130,15 +140,68 @@ void qsort(E A[], int i, int j) { // Quicksort
     qsort<E,Comp>(A, i, k-1);
     qsort<E,Comp>(A, k+1, j);
     }
-
+*/
 
 // Generate random vector
 vector<double> makeVec(double minNum, double maxNum, size_t theSize) {
+    vector<double> theVec;
+    for (size_t i = 0; i < theSize; i++) {
+        theVec.push_back(randReal(minNum,maxNum));
+    }
 
+    return theVec;
 }
 
 // Testing the functions
 int main() {
+
+    // We want a vector that takes like four seconds to sort.
+
+
+    // Test std::sort (supposed to run in O(n log n) time)
+    cout << "Testing std::sort." << endl;
+    vector<double> sortVec = makeVec(1,500,1000);
+    Timer stdTime;
+    stdTime.start();
+    std::sort(sortVec.begin(),sortVec.end());
+    stdTime.stop();
+    cout << "std::sorted vector of length " << sortVec.size() << " in " << stdTime() << " seconds." << endl << endl;
+
+
+
+    // Test the bubble sort.
+    cout << "Testing bubble sort." << endl;
+    vector<double> bubbleVec = makeVec(1,500,15000);
+    Timer bubTime;
+    bubTime.start();
+    bubsort(bubbleVec,bubbleVec.size());
+    bubTime.stop();
+    cout << "Bubble-sorted vector of length " << bubbleVec.size() << " in " << bubTime() << " seconds." << endl << endl;
+
+    // Test the insertion sort.
+    cout << "Testing insertion sort." << endl;
+    vector<double> insVec = makeVec(1,500,15000);
+    Timer insTime;
+    insTime.start();
+    inssort(insVec,insVec.size());
+    insTime.stop();
+    cout << "Insertion-sorted vector of length " << insVec.size() << " in " << insTime() << " seconds." << endl << endl;
+
+
+    // Test the selection sort.
+    cout << "Testing selection sort." << endl;
+    vector<double> selVec = makeVec(1,500,22000);
+    Timer selTime;
+    selTime.start();
+    selsort(selVec,selVec.size());
+    selTime.stop();
+    cout << "Selection-sorted vector of length " << selVec.size() << " in " << selTime() << " seconds." << endl << endl;
+
+
+    // Test the merge sort.
+
+
+    // Test the quicksort.
 
     return 0;
 }

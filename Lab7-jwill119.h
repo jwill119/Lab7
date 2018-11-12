@@ -4,6 +4,9 @@
 #ifndef LAB7_H
 #define LAB7_H
 
+#include <vector>
+using std::vector;
+
 void bubsort(vector<double> A, int n);
 void selsort(vector<double> A, int n);
 void inssort(vector<double> A, int n);
