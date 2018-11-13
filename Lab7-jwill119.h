@@ -7,10 +7,10 @@
 #include <vector>
 using std::vector;
 
-void bubsort(vector<double> A, int n);
-void selsort(vector<double> A, int n);
-void inssort(vector<double> A, int n);
-void mergsort(vector<double> A, int n);
+void bubsort(vector<double> A, size_t n);
+void selsort(vector<double> A, size_t n);
+void inssort(vector<double> A, size_t n);
+void mergsort(vector<double> A, vector<double> temp, int left, int right);
 void quicksort(vector<double> A, int n);
 
 #endif

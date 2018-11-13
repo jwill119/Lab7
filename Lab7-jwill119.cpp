@@ -93,7 +93,29 @@ void selsort(E A[], int n) { // Selection Sort
 
 // Merge sort
 // Modified from Shaffer "Data Structures and Algorithms in C++", 2012
+void mergsort(vector<double> vec, vector<double> temp, int left, int right) {
+    // We won't bother implementing an insertion sort for small lists.
+    // This is super recursive.
 
+    int i, j, k;
+    int mid = (left + right)/2;
+    mergsort(vec,temp,left,mid);
+    mergsort(vec,temp,mid+1,right);
+
+    // Do the merge operation! First: copy both halves to temp
+    for (i = mid; i >= left; i--) temp[i] = vec[i];
+    for (j = 1; j < right - mid; j++) temp[right-j+1] = vec[j+mid];
+
+    // Merge sublists back to vec
+    for (i = left, j = right, k = left; k <= right; k++) {
+        if (temp[i] < temp[j]) {
+            vec[k] = temp[i++];
+        } else {
+            vec[i] = temp[j--];
+        }
+    }
+
+}
 
 
 // The template
@@ -125,7 +147,15 @@ void mergesort(E A[], E temp[], int left, int right) {
 
 // Quicksort
 // Modified from Shaffer "Data Structures and Algorithms in C++", 2012
-
+void quicksort(vector<double> vec, int begin, int end) {
+    if (end <= begin) return;
+    int pivotIndex = (begin+end)/2; // is an integer
+    // Swap the pivot to the end
+    double temp = vec[j];
+    vec[j] = vec[pivotIndex];
+    vec[pivotIndex] = temp;
+    // Now, k is the first position in the right sub-array
+}
 
 // The template
 /*
@@ -160,14 +190,12 @@ int main() {
 
     // Test std::sort (supposed to run in O(n log n) time)
     cout << "Testing std::sort." << endl;
-    vector<double> sortVec = makeVec(1,500,1000);
+    vector<double> sortVec = makeVec(1,500,5300000);
     Timer stdTime;
     stdTime.start();
     std::sort(sortVec.begin(),sortVec.end());
     stdTime.stop();
     cout << "std::sorted vector of length " << sortVec.size() << " in " << stdTime() << " seconds." << endl << endl;
-
-
 
     // Test the bubble sort.
     cout << "Testing bubble sort." << endl;
@@ -180,7 +208,7 @@ int main() {
 
     // Test the insertion sort.
     cout << "Testing insertion sort." << endl;
-    vector<double> insVec = makeVec(1,500,15000);
+    vector<double> insVec = makeVec(1,500,18100);
     Timer insTime;
     insTime.start();
     inssort(insVec,insVec.size());
@@ -190,7 +218,7 @@ int main() {
 
     // Test the selection sort.
     cout << "Testing selection sort." << endl;
-    vector<double> selVec = makeVec(1,500,22000);
+    vector<double> selVec = makeVec(1,500,21500);
     Timer selTime;
     selTime.start();
     selsort(selVec,selVec.size());
@@ -199,6 +227,14 @@ int main() {
 
 
     // Test the merge sort.
+    cout << "Testing merge sort." << endl;
+    vector<double> mergVec = makeVec(1,500,100);
+    vector<double> tempVec(mergVec.size());
+    Timer mergTime;
+    mergTime.start();
+    mergsort(mergVec,tempVec,0,mergVec.size()-1);
+    mergTime.stop();
+    cout << "Merge-sorted vector of length " << mergVec.size() << " in " << mergTime() << " seconds." << endl << endl;
 
 
     // Test the quicksort.
