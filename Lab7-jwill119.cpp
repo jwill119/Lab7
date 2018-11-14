@@ -10,7 +10,23 @@
 using namespace std;
 
 
-// Bubble sort
+///////////////////////////////////////////////////////////////////////////////
+///                             First note                                  ///
+///////////////////////////////////////////////////////////////////////////////
+
+// We also use std::sort(), which is built into C++. It runs in O(n log n) time
+
+
+///////////////////////////////////////////////////////////////////////////////
+///                             Bubble sort                                 ///
+///////////////////////////////////////////////////////////////////////////////
+
+// The idea:
+// Bubble sort runs through the list over and over, swapping adjacent
+// elements if they are in the wrong order. It is not very efficient, running
+// in O(n^2) time. 
+
+// The code:
 // Modified from Shaffer "Data Structures and Algorithms in C++", 2012
 void bubsort(vector<double> vec, size_t n) {
     double temp;
@@ -36,7 +52,21 @@ void bubsort(E A[], int n) { // Bubble Sort
 }
 */
 
-// Insertion sort
+///////////////////////////////////////////////////////////////////////////////
+///                             Insertion sort                              ///
+///////////////////////////////////////////////////////////////////////////////
+
+// The idea:
+// The insertion sort iterates through the list. On each iteration i, it takes
+// the ith element in the list and sorts it into where it needs to go in the 
+// previously sorted part (already iterated through.)
+// So it does nothing on the first iteration (element 1 is already sorted);
+// second time it either swaps elements 1 and 2 or keeps them in place;
+// etc.
+//
+// Runs in O(n^2) time, albeit with constant additional overhead. 
+
+// The code:
 // Modified from Shaffer "Data Structures and Algorithms in C++", 2012
 void inssort(vector<double> vec, size_t n) {
     double temp;
@@ -60,7 +90,19 @@ void inssort(E A[], int n) { // Insertion Sort
 */
 
 
-// Selection sort
+///////////////////////////////////////////////////////////////////////////////
+///                             Selection sort                              ///
+///////////////////////////////////////////////////////////////////////////////
+
+
+// The idea:
+// Selection sort iterates through the array linearly. It takes the smallest
+// element of the unsorted part (everything that has not yet been iterated)
+// and puts it at the beginning of the unsorted part.
+// So it requires n comparisons for the first iterate, (n-1) for the second,
+// etc. It runs in O(n^2) time but only requires O(n) swaps.
+
+// The code:
 // Modified from Shaffer "Data Structures and Algorithms in C++", 2012
 void selsort(vector<double> vec, size_t n) {
     double temp;
@@ -91,7 +133,22 @@ void selsort(E A[], int n) { // Selection Sort
 }
 */
 
-// Merge sort
+
+///////////////////////////////////////////////////////////////////////////////
+///                              Merge sort                                 ///
+///////////////////////////////////////////////////////////////////////////////
+
+
+// The idea:
+// Merge sort runs in two parts:
+//      It splits an unsorted array in half and recursively merge-sorts each
+//      half;
+//      It merges sorted arrays into sorted order.
+// The recursive splitting runs in logarithmic time, and the merging in linear,
+// for an overall runtime of O(n log n).
+// It is sort of difficult to implement, though!
+
+// The code:
 // Modified from Shaffer "Data Structures and Algorithms in C++", 2012
 void mergsort(vector<double> vec, vector<double> temp, int left, int right) {
     // We won't bother implementing an insertion sort for small lists.
@@ -144,8 +201,17 @@ void mergesort(E A[], E temp[], int left, int right) {
 */
 
 
+///////////////////////////////////////////////////////////////////////////////
+///                              Quick sort                                 ///
+///////////////////////////////////////////////////////////////////////////////
 
-// Quicksort
+
+// The idea:
+// Quicksort picks some element as a pivot (here, the middle one) and
+// partitions each list on each side of the pivot. Then the partitioned lists
+// are also quicksorted, recursively.
+
+// The code:
 // Modified from Shaffer "Data Structures and Algorithms in C++", 2012
 void quicksort(vector<double> vec, int begin, int end) {
     if (end <= begin) return;
