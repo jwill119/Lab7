@@ -154,8 +154,7 @@ void mergsort(vector<double> vec, vector<double> temp, int left, int right) {
     // We won't bother implementing an insertion sort for small lists.
     // This is super recursive.
 
-    int i, j, k;
-    int mid = (left + right)/2;
+    int i, j, k, mid = (left + right)/2;
     mergsort(vec,temp,left,mid);
     mergsort(vec,temp,mid+1,right);
 
@@ -167,8 +166,10 @@ void mergsort(vector<double> vec, vector<double> temp, int left, int right) {
     for (i = left, j = right, k = left; k <= right; k++) {
         if (temp[i] < temp[j]) {
             vec[k] = temp[i++];
+            cout << "element " << vec[k] << "goes to index " << i << endl;
         } else {
-            vec[i] = temp[j--];
+            vec[k] = temp[j--];
+            cout << "element " << vec[k] << "goes to index " << j << endl;
         }
     }
 
@@ -213,6 +214,7 @@ void mergesort(E A[], E temp[], int left, int right) {
 
 // The code:
 // Modified from Shaffer "Data Structures and Algorithms in C++", 2012
+/*
 void quicksort(vector<double> vec, int begin, int end) {
     if (end <= begin) return;
     int pivotIndex = (begin+end)/2; // is an integer
@@ -222,6 +224,7 @@ void quicksort(vector<double> vec, int begin, int end) {
     vec[pivotIndex] = temp;
     // Now, k is the first position in the right sub-array
 }
+*/
 
 // The template
 /*
@@ -253,7 +256,7 @@ int main() {
 
     // We want a vector that takes like four seconds to sort.
 
-
+/*
     // Test std::sort (supposed to run in O(n log n) time)
     cout << "Testing std::sort." << endl;
     vector<double> sortVec = makeVec(1,500,5300000);
@@ -290,15 +293,15 @@ int main() {
     selsort(selVec,selVec.size());
     selTime.stop();
     cout << "Selection-sorted vector of length " << selVec.size() << " in " << selTime() << " seconds." << endl << endl;
-
+*/
 
     // Test the merge sort.
     cout << "Testing merge sort." << endl;
-    vector<double> mergVec = makeVec(1,500,100);
+    vector<double> mergVec = makeVec(1,500,10);
     vector<double> tempVec(mergVec.size());
     Timer mergTime;
     mergTime.start();
-    mergsort(mergVec,tempVec,0,mergVec.size()-1);
+    mergsort(mergVec,tempVec,0,mergVec.size());
     mergTime.stop();
     cout << "Merge-sorted vector of length " << mergVec.size() << " in " << mergTime() << " seconds." << endl << endl;
 
