@@ -150,29 +150,70 @@ void selsort(E A[], int n) { // Selection Sort
 
 // The code:
 // Modified from Shaffer "Data Structures and Algorithms in C++", 2012
-void mergsort(vector<double> vec, vector<double> temp, int left, int right) {
+// and geeksforgeeks.org/merge-sort
+
+
+// Merge two presorted vectors
+void merge(vector<double> vec, int left, int mid, int right) {
+    int i,j,k;
+    int siz1 = mid - left + 1;
+    int siz2 = right - mid;
+
+    // Create some temp vectors.
+    vector<double> leftSub(siz1);
+    vector<double> rightSub(siz2);
+
+    // Copy the data into the subvectors 
+    for (i = 0; i < siz1; i++) {
+        leftSub[i] = vec[left+i];
+    }
+
+    for (j = 0; j < siz2; j++) {
+        rightSub[i] = vec[mid+1+j];
+    }
+
+    // Merge them back together again.
+    i = 0;          // initialize index for the first subvector
+    j = 0;          // initialize index for the second subvector
+    k = left;       // initialize index for the merged vector
+
+    while (i < siz1 && j < siz2) {
+        if (leftSub[i] <= rightSub[j]) {
+            vec[k] = leftSub[i++];
+        } else {
+            vec[k] = rightSub[j++];
+        }
+        k++;
+    }
+
+    // Copy the rest of the elements of leftSub, if any exist.
+    while (i < siz1) {
+        vec[k] = leftSub[i];
+        i++;
+        k++;
+    }
+
+    // Copy the rest of the elements of rightSub, if there are any
+    while (j < siz2) {
+        vec[k] = rightSub[j];
+        j++;
+        k++;
+    }
+}
+
+
+// The actual sorting function.
+void mergsort(vector<double> vec, int left, int right) {
     // We won't bother implementing an insertion sort for small lists.
     // This is super recursive.
 
-    int i, j, k, mid = (left + right)/2;
-    mergsort(vec,temp,left,mid);
-    mergsort(vec,temp,mid+1,right);
+    if (left >= right) return;
 
-    // Do the merge operation! First: copy both halves to temp
-    for (i = mid; i >= left; i--) temp[i] = vec[i];
-    for (j = 1; j < right - mid; j++) temp[right-j+1] = vec[j+mid];
+    int mid = (left + right)/2;
+    mergsort(vec,left,mid);
+    mergsort(vec,mid+1,right);
 
-    // Merge sublists back to vec
-    for (i = left, j = right, k = left; k <= right; k++) {
-        if (temp[i] < temp[j]) {
-            vec[k] = temp[i++];
-            cout << "element " << vec[k] << "goes to index " << i << endl;
-        } else {
-            vec[k] = temp[j--];
-            cout << "element " << vec[k] << "goes to index " << j << endl;
-        }
-    }
-
+    merge(vec,left,mid,right);
 }
 
 
@@ -298,11 +339,21 @@ int main() {
     // Test the merge sort.
     cout << "Testing merge sort." << endl;
     vector<double> mergVec = makeVec(1,500,10);
-    vector<double> tempVec(mergVec.size());
+    cout << "Unsorted vector: < ";
+    for (int i = 0; i < mergVec.size(); i++) {
+        cout << mergVec[i] << " ";
+    }
+    cout << ">. " << endl;
+
     Timer mergTime;
     mergTime.start();
-    mergsort(mergVec,tempVec,0,mergVec.size());
+    mergsort(mergVec,0,mergVec.size()-1);
     mergTime.stop();
+    cout << "Sorted vector: < ";
+    for (int i = 0; i < mergVec.size(); i++) {
+        cout << mergVec[i] << " ";
+    }
+    cout << ">. " << endl;
     cout << "Merge-sorted vector of length " << mergVec.size() << " in " << mergTime() << " seconds." << endl << endl;
 
 
