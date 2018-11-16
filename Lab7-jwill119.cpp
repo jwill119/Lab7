@@ -297,7 +297,6 @@ int main() {
 
     // We want a vector that takes like four seconds to sort.
 
-/*
     // Test std::sort (supposed to run in O(n log n) time)
     cout << "Testing std::sort." << endl;
     vector<double> sortVec = makeVec(1,500,5300000);
@@ -334,8 +333,8 @@ int main() {
     selsort(selVec,selVec.size());
     selTime.stop();
     cout << "Selection-sorted vector of length " << selVec.size() << " in " << selTime() << " seconds." << endl << endl;
-*/
 
+    /*
     // Test the merge sort.
     cout << "Testing merge sort." << endl;
     vector<double> mergVec = makeVec(1,500,10);
@@ -355,9 +354,87 @@ int main() {
     }
     cout << ">. " << endl;
     cout << "Merge-sorted vector of length " << mergVec.size() << " in " << mergTime() << " seconds." << endl << endl;
-
+    */
 
     // Test the quicksort.
+
+
+    // Longer vectors.
+    //vector<double> dblSrt = makeVec(1,500,2*5300000);
+    //vector<double> qadSrt = makeVec(1,500,4*5300000);
+    vector<double> dblBub = makeVec(1,500,2*15000);
+    vector<double> qadBub = makeVec(1,500,4*15000);
+    vector<double> dblIns = makeVec(1,500,2*18100);
+    vector<double> qadIns = makeVec(1,500,4*18100);
+    vector<double> dblSel = makeVec(1,500,2*21500);
+    vector<double> qadSel = makeVec(1,500,4*21500);
+
+    /*
+    // Double sort
+    Timer dblSrtTime;
+    dblSrtTime.start();
+    bubsort(dblSrt,dblSrt.size());
+    dblSrtTime.stop();
+    cout << "std::sorted vector of length " << dblSrt.size() << "in " << dblSrtTime() << " seconds." << endl << endl;
+    */
+
+    // Double bubble
+    cout << "Double-length bubble sort." << endl;
+    Timer dblBubTime;
+    dblBubTime.start();
+    selsort(dblBub,dblBub.size());
+    dblBubTime.stop();
+    cout << "Bubble-sorted vector of length " << dblBub.size() << "in " << dblBubTime() << " seconds." << endl << endl;
+
+    // Double insertion
+    cout << "Double-length insertion sort." << endl;
+    Timer dblInsTime;
+    dblInsTime.start();
+    selsort(dblIns,dblIns.size());
+    dblInsTime.stop();
+    cout << "Insertion-sorted vector of length " << dblIns.size() << "in " << dblInsTime() << " seconds." << endl << endl;
+
+    // Double selection
+    cout << "Double-length selection sort." << endl;
+    Timer dblSelTime;
+    dblSelTime.start();
+    selsort(dblSel,dblSel.size());
+    dblSelTime.stop();
+    cout << "Selection-sorted vector of length " << dblSel.size() << "in " << dblSelTime() << " seconds." << endl << endl;
+
+    /*
+    // Quadruple sort
+    Timer qadSrtTime;
+    qadSrtTime.start();
+    selsort(qadSrt,qadSrt.size());
+    qadSrtTime.stop();
+    cout << "std::sorted vector of length " << qadSrt.size() << "in " << qadSrtTime() << " seconds." << endl << endl;
+    */
+
+    // Quadruple bubble
+    cout << "Quadruple-length bubble sort." << endl;
+    Timer qadBubTime;
+    qadBubTime.start();
+    selsort(qadBub,qadBub.size());
+    qadBubTime.stop();
+    cout << "Bubble-sorted vector of length " << qadBub.size() << "in " << qadBubTime() << " seconds." << endl << endl;
+    
+    // Quadruple insertion
+    cout << "Quadruple-length insertion sort." << endl;
+    Timer qadInsTime;
+    qadInsTime.start();
+    selsort(qadIns,qadIns.size());
+    qadInsTime.stop();
+    cout << "Insertion-sorted vector of length " << qadIns.size() << "in " << qadInsTime() << " seconds." << endl << endl;
+
+    // Quadruple selection
+    cout << "Quadruple-length selection sort." << endl;
+    Timer qadSelTime;
+    qadSelTime.start();
+    selsort(qadSel,qadSel.size());
+    qadSelTime.stop();
+    cout << "Selection-sorted vector of length " << qadSel.size() << "in " << qadSelTime() << " seconds." << endl << endl;
+
 
     return 0;
 }
